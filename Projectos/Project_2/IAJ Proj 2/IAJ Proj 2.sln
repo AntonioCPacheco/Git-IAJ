@@ -1,0 +1,29 @@
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2008
+
+Project("{6B3D6261-896D-9561-6F17-50C96DE54ACF}") = "IAJ Proj 2", "Assembly-CSharp.csproj", "{667F47FC-6308-AFBA-3273-E78FEC651F4C}"
+EndProject
+Project("{6B3D6261-896D-9561-6F17-50C96DE54ACF}") = "IAJ Proj 2", "Assembly-CSharp-Editor.csproj", "{612FBAAF-956B-FF31-65AB-5916BD1669F8}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{667F47FC-6308-AFBA-3273-E78FEC651F4C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{667F47FC-6308-AFBA-3273-E78FEC651F4C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{667F47FC-6308-AFBA-3273-E78FEC651F4C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{667F47FC-6308-AFBA-3273-E78FEC651F4C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{612FBAAF-956B-FF31-65AB-5916BD1669F8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{612FBAAF-956B-FF31-65AB-5916BD1669F8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{612FBAAF-956B-FF31-65AB-5916BD1669F8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{612FBAAF-956B-FF31-65AB-5916BD1669F8}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(MonoDevelopProperties) = preSolution
+		StartupItem = Assembly-CSharp.csproj
+	EndGlobalSection
+EndGlobal
