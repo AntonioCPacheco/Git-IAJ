@@ -65,9 +65,6 @@ public class IAJMenuItems  {
         var pathfindingAlgorithm = new NodeArrayAStarPathFinding(navMesh, new EuclideanDistanceHeuristic());
 
         //TODO implement the rest of the algorithm here, i.e. build the GatewayDistanceTable
-        
-        //GatewayDistanceTableRow row = ScriptableObject.CreateInstance<GatewayDistanceTableRow>();
-        //row.entries = new GatewayDistanceTableEntry[clusterGraph.gateways.Count];
         clusterGraph.gatewayDistanceTable = new GatewayDistanceTableRow[clusterGraph.gateways.Count];
         
         for (int i = 0; i < clusterGraph.gateways.Count; i++)
@@ -82,15 +79,12 @@ public class IAJMenuItems  {
                 pathfindingAlgorithm.Search(out solution);
 
                 cost = solution.Length;
-                //row.entries[j] = ScriptableObject.CreateInstance<GatewayDistanceTableEntry>();
                 clusterGraph.gatewayDistanceTable[i].entries[j] = ScriptableObject.CreateInstance<GatewayDistanceTableEntry>();
                 clusterGraph.gatewayDistanceTable[i].entries[j].startGatewayPosition = startGate.center;
                 clusterGraph.gatewayDistanceTable[i].entries[j].endGatewayPosition = endGate.center;
                 clusterGraph.gatewayDistanceTable[i].entries[j].shortestDistance = cost;
                 
             }
-            //clusterGraph.gatewayDistanceTable[i] = ScriptableObject.CreateInstance<GatewayDistanceTableRow>();
-            //clusterGraph.gatewayDistanceTable[i] = row;
         }
 
         //create a new asset that will contain the ClusterGraph and save it to disk (DO NOT REMOVE THIS LINE)

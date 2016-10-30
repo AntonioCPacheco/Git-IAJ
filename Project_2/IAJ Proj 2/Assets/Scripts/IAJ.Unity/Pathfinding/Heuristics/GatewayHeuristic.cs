@@ -17,6 +17,8 @@ namespace Assets.Scripts.IAJ.Unity.Pathfinding.Heuristics
         {
             var startCluster = this.ClusterGraph.Quantize(node);
             var goalCluster = this.ClusterGraph.Quantize(goalNode);
+            float h;
+            float shortestDistance = 0f;
 
             //for now just returns the euclidean distance
             if (object.ReferenceEquals(startCluster, null) || object.ReferenceEquals(goalCluster, null) || startCluster == goalCluster)
@@ -24,23 +26,20 @@ namespace Assets.Scripts.IAJ.Unity.Pathfinding.Heuristics
             //TODO implement this properly
             else
             {
-                float shortestDistance = 10000000000000000000000000000000f;
                 var gatewayDistanceTable = this.ClusterGraph.gatewayDistanceTable;
-                for (int i = 0; i < gatewayDistanceTable.Length; i++)
+                for (int k = 0; k < startCluster.gateways.Count; k++)
                 {
-                    for (int j = 0; j < gatewayDistanceTable[i].entries.Length; j++)
-                    { 
-                        for (int k = 0; k < startCluster.gateways.Count; k++)
-                        { 
-                            for (int l = 0; l < goalCluster.gateways.Count; l++)
-                            { 
-                                if (startCluster.gateways[k].center == gatewayDistanceTable[i].entries[j].startGatewayPosition && goalCluster.gateways[l].center == gatewayDistanceTable[i].entries[j].endGatewayPosition)
-                                    shortestDistance = Mathf.Min(shortestDistance, EuclideanDistance(node.LocalPosition, startCluster.gateways[k].center) + gatewayDistanceTable[i].entries[j].shortestDistance + EuclideanDistance(goalNode.LocalPosition, goalCluster.gateways[l].center));
-                            }
-                        }
+                    var startGateway = startCluster.gateways[k];
+                    for (int l = 0; l < goalCluster.gateways.Count; l++)
+                    {
+                        var goalGateway = goalCluster.gateways[l];
+
+                        h = EuclideanDistance(node.LocalPosition, startGateway.center) + EuclideanDistance(goalNode.LocalPosition, goalGateway.center) + gatewayDistanceTable[startGateway.id].entries[goalGateway.id].shortestDistance;
+                        shortestDistance = Mathf.Min(shortestDistance,  -h);
                     }
+                    
                 }
-                return shortestDistance;
+                return -shortestDistance;
             }
         }
 
