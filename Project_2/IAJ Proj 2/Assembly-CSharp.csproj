@@ -45,10 +45,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Scripts\IAJ.Unity\Movement\DynamicMovement\DynamicArrive.cs" />
      <Compile Include="Assets\Scripts\IAJ.Unity\Movement\DynamicMovement\DynamicCharacter.cs" />
      <Compile Include="Assets\Scripts\IAJ.Unity\Movement\DynamicMovement\DynamicFollowPath.cs" />
      <Compile Include="Assets\Scripts\IAJ.Unity\Movement\DynamicMovement\DynamicMovement.cs" />
      <Compile Include="Assets\Scripts\IAJ.Unity\Movement\DynamicMovement\DynamicSeek.cs" />
+     <Compile Include="Assets\Scripts\IAJ.Unity\Movement\DynamicMovement\DynamicVelocityMatch.cs" />
      <Compile Include="Assets\Scripts\IAJ.Unity\Movement\KinematicData.cs" />
      <Compile Include="Assets\Scripts\IAJ.Unity\Movement\KinematicMovement\KinematicArrive.cs" />
      <Compile Include="Assets\Scripts\IAJ.Unity\Movement\KinematicMovement\KinematicCharacter.cs" />
@@ -68,6 +70,8 @@
      <Compile Include="Assets\Scripts\IAJ.Unity\Pathfinding\DataStructures\HPStructures\GatewayDistanceTableRow.cs" />
      <Compile Include="Assets\Scripts\IAJ.Unity\Pathfinding\DataStructures\IClosedSet.cs" />
      <Compile Include="Assets\Scripts\IAJ.Unity\Pathfinding\DataStructures\IOpenSet.cs" />
+     <Compile Include="Assets\Scripts\IAJ.Unity\Pathfinding\DataStructures\NodePriorityHeap.cs" />
+     <Compile Include="Assets\Scripts\IAJ.Unity\Pathfinding\DataStructures\NodeRecordArray.cs" />
      <Compile Include="Assets\Scripts\IAJ.Unity\Pathfinding\DataStructures\SimpleUnorderedNodeList.cs" />
      <Compile Include="Assets\Scripts\IAJ.Unity\Pathfinding\Heuristics\EuclideanDistanceHeuristic.cs" />
      <Compile Include="Assets\Scripts\IAJ.Unity\Pathfinding\Heuristics\GatewayHeuristic.cs" />

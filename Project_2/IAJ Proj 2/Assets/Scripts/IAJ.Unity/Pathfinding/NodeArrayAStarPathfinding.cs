@@ -43,7 +43,7 @@ namespace Assets.Scripts.IAJ.Unity.Pathfinding
             }
 
 
-             g = bestNode.gValue + connectionEdge.Cost;
+            g = bestNode.gValue + connectionEdge.Cost;
             h = this.Heuristic.H(childNodeRecord.node, this.GoalNode);
             f = g + h;
 
