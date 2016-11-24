@@ -1,0 +1,29 @@
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2008
+
+Project("{0A29F5A1-783F-5CD8-8213-5F9A38118437}") = "IAJ Decision Making", "Assembly-CSharp.csproj", "{4BEF562F-CE86-414E-8453-8B887CF6902F}"
+EndProject
+Project("{0A29F5A1-783F-5CD8-8213-5F9A38118437}") = "IAJ Decision Making", "Assembly-CSharp-Editor.csproj", "{53FE42CA-2097-0E2E-2C33-DC67227FCDBD}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4BEF562F-CE86-414E-8453-8B887CF6902F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4BEF562F-CE86-414E-8453-8B887CF6902F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4BEF562F-CE86-414E-8453-8B887CF6902F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4BEF562F-CE86-414E-8453-8B887CF6902F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{53FE42CA-2097-0E2E-2C33-DC67227FCDBD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{53FE42CA-2097-0E2E-2C33-DC67227FCDBD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{53FE42CA-2097-0E2E-2C33-DC67227FCDBD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{53FE42CA-2097-0E2E-2C33-DC67227FCDBD}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(MonoDevelopProperties) = preSolution
+		StartupItem = Assembly-CSharp.csproj
+	EndGlobalSection
+EndGlobal
