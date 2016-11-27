@@ -6,7 +6,7 @@ namespace Assets.Scripts.IAJ.Unity.DecisionMaking.GOB
     public class WorldModel
     {
         private Dictionary<string, object> Properties { get; set; }
-        private List<Action> Actions { get; set; }
+        public List<Action> Actions { get; set; }
         protected IEnumerator<Action> ActionEnumerator { get; set; } 
 
         private Dictionary<string, float> GoalValues { get; set; } 

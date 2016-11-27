@@ -72,6 +72,7 @@ namespace Assets.Scripts
 
         public void Start()
         {
+            Time.timeScale = 2;
             this.draw = true;
 
             this.navMesh = NavigationManager.Instance.NavMeshGraphs[0];
