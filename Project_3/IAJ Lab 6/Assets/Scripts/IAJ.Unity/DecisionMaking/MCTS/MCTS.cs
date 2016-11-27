@@ -59,9 +59,9 @@ namespace Assets.Scripts.IAJ.Unity.DecisionMaking.MCTS
             this.BestActionSequence = new List<GOB.Action>();
         }
 
-        public GOB.Action Run()
+public GOB.Action Run()
         {
-            MCTSNode selectedNode;
+            MCTSNode selectedNode = null;
             Reward reward;
 
             var startTime = Time.realtimeSinceStartup;
@@ -94,7 +94,7 @@ namespace Assets.Scripts.IAJ.Unity.DecisionMaking.MCTS
             MCTSNode currentNode = initialNode;
             MCTSNode bestChild = currentNode;
 
-            while (!currentNode.State.IsTerminal())
+            while(!currentNode.State.IsTerminal())
             {
                 nextAction = currentNode.State.GetNextAction();
                 //GOB.Action[] actions = currentNode.State.GetExecutableActions();
@@ -110,7 +110,6 @@ namespace Assets.Scripts.IAJ.Unity.DecisionMaking.MCTS
                 }
                 this.MaxSelectionDepthReached++;
             }
-
             return bestChild;
         }
 
@@ -186,3 +185,4 @@ namespace Assets.Scripts.IAJ.Unity.DecisionMaking.MCTS
         }
     }
 }
+
