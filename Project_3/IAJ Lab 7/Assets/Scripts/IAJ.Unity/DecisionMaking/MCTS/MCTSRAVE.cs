@@ -58,36 +58,10 @@ namespace Assets.Scripts.IAJ.Unity.DecisionMaking.MCTS
                 }
             }
             Reward r = new Reward();
-            r.Value = 1;// state.GetScore();
+            r.Value = state.GetScore();
             return r;
         }
 
-        /*protected override void Backpropagate(MCTSNode node, Reward reward)
-        {
-            while(node != null)
-            {
-                node.N = node.N + 1;
-                //reward.PlayerID = node.Parent.PlayerID;
-                node.Q = node.Q + reward.Value;// + reward.GetRewardForNode(node);
-                ActionHistory.Add(new Pair<int, GOB.Action>(node.Parent.PlayerID, node.Action));
-                node = node.Parent;
-
-                if(node != null)
-                {
-                    int p = node.PlayerID;
-                    reward.Value = reward.GetRewardForNode(node);
-                    foreach (var child in node.ChildNodes)
-                    {
-                        if (ActionHistory.Contains(new Utils.Pair<int, GOB.Action>(p, child.Action)))
-                        {
-                            child.NRAVE = child.NRAVE + 1;
-                            //reward.PlayerID = p;
-                            child.QRAVE = child.QRAVE + reward.Value;
-                        }
-                    }
-                }
-            }
-        }*/
         protected override void Backpropagate(MCTSNode node, Reward reward)
         {
             int player;
@@ -95,11 +69,12 @@ namespace Assets.Scripts.IAJ.Unity.DecisionMaking.MCTS
             {
                 node.N++;
                 node.Q += reward.Value;
-                this.ActionHistory.Add(new Pair<int, GOB.Action>(node.PlayerID, node.Action));
+                Action action = node.Action;
                 node = node.Parent;
                 if (node != null)
                 {
                     player = node.PlayerID;
+                    this.ActionHistory.Add(new Pair<int, GOB.Action>(player, action));
                     foreach (MCTSNode child in node.ChildNodes)
                     {
                         if (this.ActionHistory.Contains(new Pair<int, GOB.Action>(player, child.Action)))

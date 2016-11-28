@@ -74,7 +74,7 @@ namespace Assets.Scripts
 
         public void Start()
         {
-            Time.timeScale = 5;
+            Time.timeScale = 1;
             this.draw = true;
 
             this.navMesh = NavigationManager.Instance.NavMeshGraphs[0];
@@ -155,8 +155,8 @@ namespace Assets.Scripts
             //var worldModel = new NewWorldModel(this.Actions);
             this.GOAPDecisionMaking = new DepthLimitedGOAPDecisionMaking(worldModel,this.Actions,this.Goals);
             this.MCTSDecisionMaking = new MCTSRAVE(worldModel);
-            this.MCTSDecisionMaking.MaxIterations = 5000;
-            this.MCTSDecisionMaking.MaxIterationsProcessedPerFrame = 25;
+            this.MCTSDecisionMaking.MaxIterations = 100000;
+            this.MCTSDecisionMaking.MaxIterationsProcessedPerFrame = 1000;
         }
 
         void Update()
