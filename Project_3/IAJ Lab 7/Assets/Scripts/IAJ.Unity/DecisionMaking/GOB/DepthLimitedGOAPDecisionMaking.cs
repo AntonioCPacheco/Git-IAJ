@@ -58,7 +58,7 @@ namespace Assets.Scripts.IAJ.Unity.DecisionMaking.GOB
             //TODO: Implement
 
             //def planAction(worldModel, maxDepth)
-            float currentValue;
+            float currentValue = float.MinValue;
             while (this.CurrentDepth >= 0 && this.ActionCombinationsThisFrame < this.ActionCombinationsProcessedPerFrame) {
                 if (this.CurrentDepth >= MAX_DEPTH) {
                     currentValue = this.Models[this.CurrentDepth].CalculateDiscontentment(Goals);
@@ -76,11 +76,14 @@ namespace Assets.Scripts.IAJ.Unity.DecisionMaking.GOB
                 }
                 Action nextAction = this.Models[this.CurrentDepth].GetNextAction();
                 if (nextAction != null){
-                    this.Models[this.CurrentDepth + 1] = this.Models[this.CurrentDepth].GenerateChildWorldModel();
-                    nextAction.ApplyActionEffects(this.Models[this.CurrentDepth + 1]);
-                    this.ActionPerLevel[this.CurrentDepth] = nextAction;
-                    this.CurrentDepth += 1;
-                    processedActions++;
+                    WorldModel wm = this.Models[this.CurrentDepth].GenerateChildWorldModel();
+                    nextAction.ApplyActionEffects(wm);
+                    if(wm.CalculateDiscontentment(Goals) < this.BestDiscontentmentValue){
+                        this.Models[this.CurrentDepth + 1] = wm;
+                        this.ActionPerLevel[this.CurrentDepth] = nextAction;
+                        this.CurrentDepth += 1;
+                        processedActions++;
+                    }
                 }
                 else {
                     if(this.CurrentDepth == 0 && BestAction == null)
