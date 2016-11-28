@@ -85,6 +85,7 @@
     <Compile Include="Assets\Scripts\IAJ.Unity\DecisionMaking\GOB\Action.cs" />
     <Compile Include="Assets\Scripts\IAJ.Unity\DecisionMaking\GOB\DepthLimitedGOAPDecisionMaking.cs" />
     <Compile Include="Assets\Scripts\IAJ.Unity\DecisionMaking\GOB\Goal.cs" />
+    <Compile Include="Assets\Scripts\IAJ.Unity\DecisionMaking\GOB\NewWorldModel.cs" />
     <Compile Include="Assets\Scripts\IAJ.Unity\DecisionMaking\GOB\WorldModel.cs" />
     <Compile Include="Assets\Scripts\IAJ.Unity\DecisionMaking\MCTS\MCTS.cs" />
     <Compile Include="Assets\Scripts\IAJ.Unity\DecisionMaking\MCTS\MCTSBiasedPlayout.cs" />
