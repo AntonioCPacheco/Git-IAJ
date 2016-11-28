@@ -61,8 +61,13 @@ namespace Assets.Scripts.IAJ.Unity.DecisionMaking.MCTS
 
         public GOB.Action Run()
         {
-            MCTSNode selectedNode = null;
-            Reward reward;
+            InitializeMCTSearch();
+            MCTSNode selectedNode = InitialNode;
+            Reward reward = new Reward()
+            {
+                PlayerID = this.CurrentStateWorldModel.GetNextPlayer(),
+                Value = this.CurrentStateWorldModel.GetScore()
+            };
 
             var startTime = Time.realtimeSinceStartup;
             this.CurrentIterationsInFrame = 0;
@@ -72,16 +77,15 @@ namespace Assets.Scripts.IAJ.Unity.DecisionMaking.MCTS
                 selectedNode = Selection(this.InitialNode);
                 reward = Playout(selectedNode.State);
                 Backpropagate(selectedNode, reward);
-
                 this.CurrentIterationsInFrame++;
             }
 
-            /*MCTSNode node = BestUCTChild(selectedNode);
+            MCTSNode node = BestUCTChild(selectedNode);
             while(node != null)
             {
                 this.BestActionSequence.Add(node.Action);
                 node = BestUCTChild(node);
-            }*/
+            }
             this.CurrentIterations += this.CurrentIterationsInFrame;
             this.InProgress = false;
             this.TotalProcessingTime += Time.realtimeSinceStartup - startTime;
@@ -92,7 +96,7 @@ namespace Assets.Scripts.IAJ.Unity.DecisionMaking.MCTS
         {
             GOB.Action nextAction;
             MCTSNode currentNode = initialNode;
-            MCTSNode bestChild = currentNode;
+            //MCTSNode bestChild = currentNode;
 
             while(!currentNode.State.IsTerminal())
             {
@@ -103,11 +107,11 @@ namespace Assets.Scripts.IAJ.Unity.DecisionMaking.MCTS
                 }
                 else
                 {
+                    this.MaxSelectionDepthReached++;
                     currentNode = BestUCTChild(currentNode);
                 }
-                this.MaxSelectionDepthReached++;
             }
-            return bestChild;
+            return currentNode;
         }
 
         protected virtual Reward Playout(WorldModel initialPlayoutState)
@@ -128,13 +132,14 @@ namespace Assets.Scripts.IAJ.Unity.DecisionMaking.MCTS
             while(node != null)
             {
                 node.N = node.N + 1;
+                node.Q = node.Q + reward.Value;
                 node = node.Parent;
             }
         }
 
         private MCTSNode Expand(MCTSNode parent, GOB.Action action)
         {
-            WorldModel worldmodel = CurrentStateWorldModel.GenerateChildWorldModel();
+            WorldModel worldmodel = parent.State.GenerateChildWorldModel();
             action.ApplyActionEffects(worldmodel);
             worldmodel.CalculateNextPlayer();
             MCTSNode n = new MCTSNode(worldmodel)
@@ -142,7 +147,9 @@ namespace Assets.Scripts.IAJ.Unity.DecisionMaking.MCTS
                 Action = action,
                 Parent = parent,
                 N = 0,
-                Q = 0
+                Q = 0,
+                NRAVE = 0,
+                QRAVE = 0
             };
             parent.ChildNodes.Add(n);
             return n;
@@ -160,7 +167,6 @@ namespace Assets.Scripts.IAJ.Unity.DecisionMaking.MCTS
                     bestChildValue = node.ChildNodes[i].Q + C * Mathf.Sqrt(Mathf.Log(node.N) / node.ChildNodes[i].N);
                     bestChild = node.ChildNodes[i];
                 }
-                    
             }
             return bestChild;
         }

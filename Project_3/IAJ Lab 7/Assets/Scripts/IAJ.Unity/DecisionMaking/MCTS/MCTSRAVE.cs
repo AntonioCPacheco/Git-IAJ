@@ -27,7 +27,7 @@ namespace Assets.Scripts.IAJ.Unity.DecisionMaking.MCTS
             float Beta = node.NRAVE / (node.N + node.NRAVE + 4 * node.N * node.NRAVE * b * b);
 
             //step 2, calculate the MCTS value, the RAVE value, and the UCT for each child and determine the best one
-            foreach (var child in node.ChildNodes)
+            foreach (MCTSNode child in node.ChildNodes)
             {
                 MCTSValue = child.Q;
                 RAVEValue = ((1 - Beta) * child.Q / child.N + Beta * child.QRAVE / child.NRAVE) + (C * Mathf.Sqrt(Mathf.Log(node.N) / child.N));
@@ -54,21 +54,22 @@ namespace Assets.Scripts.IAJ.Unity.DecisionMaking.MCTS
                     nextAction = actions[RandomGenerator.Next() % actions.Length];
                     ActionHistory.Add(new Pair<int, GOB.Action>(state.GetNextPlayer(), nextAction));
                     nextAction.ApplyActionEffects(state);
+                    state.CalculateNextPlayer();
                 }
             }
             Reward r = new Reward();
-            r.Value = r.GetRewardForNode(new MCTSNode(state));
+            r.Value = 1;// state.GetScore();
             return r;
         }
 
-        protected override void Backpropagate(MCTSNode node, Reward reward)
+        /*protected override void Backpropagate(MCTSNode node, Reward reward)
         {
             while(node != null)
             {
                 node.N = node.N + 1;
-                reward.PlayerID = node.Parent.PlayerID;
-                node.Q = node.Q + reward.GetRewardForNode(node);//(node, node.Parent.PlayerID);
-                ActionHistory.Add(new Pair<int, GOB.Action>(node.Parent.PlayerID, node.Parent.Action));
+                //reward.PlayerID = node.Parent.PlayerID;
+                node.Q = node.Q + reward.Value;// + reward.GetRewardForNode(node);
+                ActionHistory.Add(new Pair<int, GOB.Action>(node.Parent.PlayerID, node.Action));
                 node = node.Parent;
 
                 if(node != null)
@@ -80,8 +81,31 @@ namespace Assets.Scripts.IAJ.Unity.DecisionMaking.MCTS
                         if (ActionHistory.Contains(new Utils.Pair<int, GOB.Action>(p, child.Action)))
                         {
                             child.NRAVE = child.NRAVE + 1;
-                            reward.PlayerID = p;
-                            child.QRAVE = child.QRAVE + reward.GetRewardForNode(child);
+                            //reward.PlayerID = p;
+                            child.QRAVE = child.QRAVE + reward.Value;
+                        }
+                    }
+                }
+            }
+        }*/
+        protected override void Backpropagate(MCTSNode node, Reward reward)
+        {
+            int player;
+            while (node != null)
+            {
+                node.N++;
+                node.Q += reward.Value;
+                this.ActionHistory.Add(new Pair<int, GOB.Action>(node.PlayerID, node.Action));
+                node = node.Parent;
+                if (node != null)
+                {
+                    player = node.PlayerID;
+                    foreach (MCTSNode child in node.ChildNodes)
+                    {
+                        if (this.ActionHistory.Contains(new Pair<int, GOB.Action>(player, child.Action)))
+                        {
+                            child.NRAVE++;
+                            child.QRAVE += reward.Value;
                         }
                     }
                 }
