@@ -32,9 +32,9 @@ namespace Assets.Scripts.IAJ.Unity.DecisionMaking.MCTS
                 MCTSValue = child.Q;
                 RAVEValue = ((1 - Beta) * child.Q / child.N + Beta * child.QRAVE / child.NRAVE) + (C * Mathf.Sqrt(Mathf.Log(node.N) / child.N));
                 UCTValue = child.Q + C * Mathf.Sqrt(Mathf.Log(node.N) / child.N);
-                if(UCTValue + MCTSValue + RAVEValue > bestUCT)
+                if(RAVEValue > bestUCT)
                 {
-                    bestUCT = UCTValue + MCTSValue + RAVEValue;
+                    bestUCT = RAVEValue;
                     bestNode = child;
                 }
             }
