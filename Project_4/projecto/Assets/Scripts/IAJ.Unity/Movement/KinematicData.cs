@@ -7,7 +7,11 @@ namespace Assets.Scripts.IAJ.Unity.Movement
     public class KinematicData : StaticData
     {
         public Vector3 velocity;
+        public Vector3 prefVelocity;
+        public float prefSpeed;
         public float rotation;
+        public float radius;
+        public Vector3 Goal;
 
         public KinematicData()
         {
@@ -100,5 +104,20 @@ namespace Assets.Scripts.IAJ.Unity.Movement
         {
             base.SetOrientationFromVelocity(this.velocity);
         }
+
+        public void CalculatePrefVelocity()
+        {
+            float distToGoal = (Goal - position).magnitude;
+
+            if ((prefSpeed * Time.deltaTime) > distToGoal)
+            {
+                prefVelocity = (Goal - position) / Time.deltaTime;
+            }
+            else
+            {
+                prefVelocity = prefSpeed * (Goal - position) / distToGoal;
+            }
+        }
+
     }
 }

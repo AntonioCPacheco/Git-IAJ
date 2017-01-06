@@ -140,12 +140,12 @@ public class PriorityManager : MonoBehaviour
         this.Blended.Movements.Add(new MovementWithWeight(flockVelocityMatch, 2f));
         this.Blended.Movements.Add(new MovementWithWeight(cohesion, 2f));
         
-        */
         var VO = new VelocityObstacle(obstacles)
         {
             Character = this.RedCharacter.KinematicData
         };
         this.Blended.Movements.Add(new MovementWithWeight(VO, 4f));
+        */
         this.RedCharacter.Movement = this.Blended;
     }
 
