@@ -83,8 +83,15 @@ public class HRVO : MonoBehaviour {
 
             foreach(Vector3 intersection in intersections)
             {
-                //CONTINUE
+                ///CONTINUE
+                //foreach VO in VOs
+                //  if intersection is inside VO
+                //      remove intersection from intersections 
             }
+
+            //Now that we have all the candidates, we need to check which of the candidates
+            //is closer to the preferred velocity, and change the velocity of the Character
+            //to the velocity
         }
 	}
 }
