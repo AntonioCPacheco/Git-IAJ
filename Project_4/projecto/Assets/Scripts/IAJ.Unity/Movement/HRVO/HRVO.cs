@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Assets.Scripts.IAJ.Unity.Movement;
 
-public class HRVO : MonoBehaviour {
+public class HRVO {
 
     public KinematicData Target { get; set; }
     public KinematicData Character { get; set; }
@@ -14,7 +14,7 @@ public class HRVO : MonoBehaviour {
     {
         public Vector3 origin { get; set; }
         public Vector3 end { get; set; }
-
+        public int id;
         public Vector3 intersectWith(Line line)
         {
             try
@@ -30,10 +30,11 @@ public class HRVO : MonoBehaviour {
     }
 
     // Use this for initialization
-    void Start () {
+    public void Start()
+    {
         GameObject[] objArray = GameObject.FindGameObjectsWithTag("Obstacle");
         this.Obstacles = new List<KinematicData>();
-        for(int i=0; i<objArray.Length; i++)
+        for (int i = 0; i < objArray.Length; i++)
         {
             this.Obstacles.Add(new KinematicData(new StaticData(objArray[i].transform.position)));
         }
@@ -44,9 +45,11 @@ public class HRVO : MonoBehaviour {
             this.DynamicObstacles.Add(new KinematicData(new StaticData(objArray[i].transform.position)));
         }
     }
-	
-	// Update is called once per frame
-	void Update () {
+
+    // Update is called once per frame
+    public void Update()
+    {
+        int idVO = 0;
         foreach (KinematicData i in DynamicObstacles)
         {
             VelocityObstacle VO = new VelocityObstacle(Obstacles, DynamicObstacles)
@@ -55,18 +58,27 @@ public class HRVO : MonoBehaviour {
                 detectRadius = 20f
             };
 
+            Debug.Log("Calculate VO");
             List<VelocityObstacle> VOs = VO.calculateVOs();
-
+            Debug.Log("Calculated VO");
             List<Vector3> intersections = new List<Vector3>();
             List<Line> lines = new List<Line>();
             float finalDistance = float.MaxValue;
             Vector3 finalVelocity = new Vector3();
             foreach (VelocityObstacle velocityObstacle in VOs)
             {
+
                 lines.Add(new Line
                 {
-                    origin = velocityObstacle.apex + velocityObstacle.sideL * 1000,
+                    id = idVO,
+                    origin = velocityObstacle.apex,
                     end = velocityObstacle.apex + velocityObstacle.sideR * 1000
+                });
+                lines.Add(new Line
+                {
+                    id = idVO,
+                    origin = velocityObstacle.apex,
+                    end = velocityObstacle.apex + velocityObstacle.sideL * 1000
                 });
             }
 
@@ -74,7 +86,7 @@ public class HRVO : MonoBehaviour {
             {
                 foreach (Line line2 in lines)
                 {
-                    if (line1 != line2)
+                    if (line1.id != line2.id)
                     {
                         Vector3 intersection = line1.intersectWith(line2);
                         if (intersection != Vector3.zero)
@@ -94,6 +106,7 @@ public class HRVO : MonoBehaviour {
                     }
                 }
             }
+
             foreach (Vector3 candidate in intersections)
             {
                 float distance = GetDistance(i.prefVelocity.x, i.prefVelocity.z, candidate.x, candidate.z);
@@ -103,10 +116,13 @@ public class HRVO : MonoBehaviour {
                     finalVelocity = candidate;
                 }
             }
-            i.velocity = finalVelocity;
+            if (finalVelocity != Vector3.zero)
+                i.velocity = finalVelocity;
+
             //Now that we have all the candidates, we need to check which of the candidates
             //is closer to the preferred velocity, and change the velocity of the Character
             //to the velocity
+            Debug.Log(i.velocity);
         }
     }
 

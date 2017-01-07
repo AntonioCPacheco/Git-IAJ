@@ -61,7 +61,12 @@ public class VelocityObstacle
                 Vector3 vec4 = obstacle.velocity + sideR * size;
                 apex = new Vector3(((vec1.x * vec2.z - vec1.z * vec2.x) * (vec3.x - vec4.x) - (vec1.x - vec2.x) * (vec3.x * vec4.z - vec3.z * vec4.x)) / ((vec1.x - vec2.x) * (vec3.z - vec4.z) - (vec1.z - vec2.z) * (vec3.x - vec4.x)),
                                    ((vec1.x * vec2.z - vec1.z * vec2.x) * (vec3.z - vec4.z) - (vec1.z - vec2.z) * (vec3.x * vec4.z - vec3.z * vec4.x)) / ((vec1.x - vec2.x) * (vec3.z - vec4.z) - (vec1.z - vec2.z) * (vec3.x - vec4.x)));
+
+                
             }
+            Debug.Log(sideR);
+            Debug.Log(apex);
+            Debug.Log(sideL);
             result.Add(this);
         }
 

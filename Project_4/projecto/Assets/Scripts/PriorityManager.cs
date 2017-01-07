@@ -28,6 +28,9 @@ public class PriorityManager : MonoBehaviour
 
     private List<DynamicCharacter> Characters { get; set; }
 
+    private HRVO hrvo { get; set; }
+    
+
     // Use this for initialization
     void Start()
     {
@@ -51,16 +54,25 @@ public class PriorityManager : MonoBehaviour
         {
             this.InitializeCharacter(c, obstacles, dynamicObstacles);
         }
-
+        this.hrvo = new global::HRVO();
+        this.hrvo.Start();
     }
 
     private void InitializeCharacter(DynamicCharacter character, GameObject[] obstacles, GameObject[] dynamicObstacles)
     {
 
-        this.Priority = new PriorityMovement
+        this.Blended = new BlendedMovement
         {
             Character = character.KinematicData
         };
+
+        var seek = new DynamicSeek
+        {
+            Target = new KinematicData(new StaticData(character.KinematicData.Goal))
+        };
+
+        this.Blended.Movements.Add(new MovementWithWeight(seek, 1f));
+        character.Movement = this.Blended;
 
     }
 
@@ -199,21 +211,23 @@ public class PriorityManager : MonoBehaviour
     
     void Update()
     {
-        /*foreach (var character in this.Characters)
+        foreach (var character in this.Characters)
         {
             this.UpdateMovingGameObject(character);
-        }*/
-        this.UpdateMovingGameObject(this.RedCharacter);
+        }
+        //this.UpdateMovingGameObject(this.RedCharacter);
 
     }
 
     private void UpdateMovingGameObject(DynamicCharacter movingCharacter)
     {
+        hrvo.Update();
         if (movingCharacter.Movement != null)
         {
             movingCharacter.Update();
             movingCharacter.KinematicData.ApplyWorldLimit(X_WORLD_SIZE, Z_WORLD_SIZE);
             movingCharacter.GameObject.transform.position = movingCharacter.Movement.Character.position;
+            
         }
     }
 
