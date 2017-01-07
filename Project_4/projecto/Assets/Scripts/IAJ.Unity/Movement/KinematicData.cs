@@ -15,24 +15,28 @@ namespace Assets.Scripts.IAJ.Unity.Movement
 
         public KinematicData()
         {
+            this.radius = 20.0f;
             this.velocity = Vector3.zero;
             this.rotation = 0;
         }
 
         public KinematicData(StaticData loc) : base(loc.position,loc.orientation)
         {
+            this.radius = 20.0f;
             this.velocity = Vector3.zero;
             this.rotation = 0;
         }
 
         public KinematicData(StaticData loc, Vector3 velocity) : base(loc.position,loc.orientation)
         {
+            this.radius = 20.0f;
             this.velocity = velocity;
             this.rotation = 0;
         }
 
         public KinematicData(Vector3 position, Vector3 velocity, float orientation, float angularVelocity) : base(position, orientation)
         {
+            this.radius = 20.0f;
             this.velocity = velocity;
             this.rotation = angularVelocity;
         }
@@ -40,6 +44,7 @@ namespace Assets.Scripts.IAJ.Unity.Movement
         public override void Clear()
         {
             base.Clear();
+            this.radius = 20.0f;
             this.velocity = Vector3.zero;
             this.rotation = 0;
         }
